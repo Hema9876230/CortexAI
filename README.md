@@ -286,21 +286,4 @@ Cloud & DevOps
 | GitHub         | Source code hosting         |
 
 
-🔑 Environment Variables
-PORT=8003
-
-MONGODB_URI=your_mongodb_uri
-
-GROQ_API_KEY=your_groq_api_key
-GOOGLE_API_KEY=your_google_api_key
-TAVILY_API_KEY=your_tavily_api_key
-OPENROUTER_API_KEY=your_openrouter_api_key
-
-AWS_REGION=your_aws_region
-AWS_ACCESS_KEY_ID=your_aws_access_key
-AWS_SECRET_ACCESS_KEY=your_aws_secret
-AWS_BUCKET_NAME=your_bucket_name
-
-QDRANT_API_KEY=your_qdrant_api_key
-QDRANT_URL=your_qdrant_url
 

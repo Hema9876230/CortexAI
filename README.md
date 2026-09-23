@@ -35,6 +35,8 @@ CortexAI includes the following specialized agents:
                            END
 
 
+Complete Architecture 
+
                               ┌─────────────────────┐
                               │       USER          │
                               └──────────┬──────────┘

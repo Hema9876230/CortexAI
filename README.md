@@ -1,128 +1,107 @@
-# 🧠 CortexAI
+# 🧠 CortexAI — Multi-Agent AI Platform
 
-CortexAI is a full-stack AI-powered personal assistant designed to provide intelligent conversations, AI agents, web search, coding assistance, authentication, subscription-based usage, and personalized AI features through a modern microservices architecture.
+CortexAI is a full-stack **Multi-Agent AI Platform** designed to provide intelligent AI assistance for multiple tasks including conversational AI, web search, coding, PDF processing, PPT generation, and image generation.
 
-The project combines a React frontend with a Node.js backend consisting of multiple independent services, making the application scalable, modular, and easier to maintain.
-
----
-
-## ✨ Features
-
-### 🤖 AI Chat
-- Intelligent conversational AI
-- Context-aware conversations
-- Conversation history
-- Create and manage multiple conversations
-- Real-time AI responses
-- Markdown-based responses
-
-### 🔎 AI Web Search
-- Search the web using Tavily
-- Retrieve current information from the internet
-- AI-generated responses based on search results
-- Useful for latest information and research queries
-
-### 💻 AI Coding Agent
-- AI-powered code generation
-- Code explanation
-- Code debugging
-- Code review
-- Code optimization
-- Code conversion
-- Project/file generation
-- Structured project artifacts
-
-### 🧠 AI Agent System
-CortexAI uses an agent-based architecture to route user requests to specialized AI capabilities.
-
-Supported operations include:
-
-- General AI Chat
-- Web Search
-- Coding
-- Image Analysis
-- Intent Classification
-
-### 🔐 Authentication
-- Firebase Authentication
-- JWT/session-based backend authentication
-- Secure cookies
-- Protected routes
-- User account management
-
-### 💳 Billing & Credits
-- Subscription plans
-- Credit-based AI usage
-- Credit deduction for AI operations
-- Payment verification
-- Usage limits
-
-### 📊 Conversation Management
-- Create conversations
-- Retrieve conversations
-- Retrieve messages
-- Update conversations
-- Maintain conversation history
-
-### ⚡ Redis
-Redis is used for:
-- Session management
-- Temporary data
-- Caching
-- Fast access to frequently used information
+The platform is built using a **MERN-based frontend/backend ecosystem with a microservices architecture**, LangChain, LangGraph, RAG, vector search, Redis-based memory, multiple AI models, and cloud infrastructure.
 
 ---
 
-# 🏗️ System Architecture
+# 🚀 Features
 
-CortexAI follows a microservices-oriented architecture.
+CortexAI provides multiple specialized AI agents that are coordinated through a central routing workflow.
+
+## 🤖 Multi-Agent AI System
+
+CortexAI includes the following specialized agents:
 
 ```text
-                                          ┌──────────────────────┐
-                         │    React Frontend    │
-                         │      Vite + React    │
-                         └───────────┬──────────┘
-                                     │
-                                     ▼
-                         ┌──────────────────────┐
-                         │     API Gateway      │
-                         │      Port 8000       │
-                         └───────────┬──────────┘
-                                     │
-             ┌───────────────────────┼────────────────────────┐
-             │                       │                        │
-             ▼                       ▼                        ▼
-      ┌─────────────┐        ┌─────────────┐         ┌─────────────┐
-      │    Auth     │        │    Chat     │         │   Billing   │
-      │   Service   │        │   Service   │         │   Service   │
-      └──────┬──────┘        └──────┬──────┘         └──────┬──────┘
-             │                      │                       │
-             └──────────────────────┼───────────────────────┘
-                                    │
-                                    ▼
-                           ┌─────────────────┐
-                           │  Agent Service  │
-                           │                 │
-                           │  Chat Agent     │
-                           │  Search Agent   │
-                           │  Coding Agent   │
-                           │  Image Agent    │
-                           └────────┬────────┘
-                                    │
-                    ┌───────────────┼────────────────┐
-                    │               │                │
-                    ▼               ▼                ▼
-               ┌─────────┐     ┌─────────┐     ┌───────────┐
-               │ MongoDB │     │  Redis  │     │ LLM APIs  │
-               └─────────┘     └─────────┘     └─────┬─────┘
-                                                     │
-                                      ┌──────────────┼──────────────┐
-                                      ▼              ▼              ▼
-                                   Groq API      OpenRouter      Gemini
-                                      │
-                                      ▼
-                                   Tavily
-Project Structure
+                    ┌───────────────┐
+                    │     START     │
+                    └───────┬───────┘
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │  Router Agent │
+                    └───────┬───────┘
+                            │
+       ┌────────────┬───────┼────────┬────────────┬─────────────┐
+       ▼            ▼       ▼        ▼            ▼             ▼
+    Chat Agent  Search   Coding   PDF Agent   PPT Agent   ImageGen Agent
+                Agent    Agent
+       │            │       │        │            │             │
+       └────────────┴───────┴────────┴────────────┴─────────────┘
+                            │
+                            ▼
+                           END
+
+
+                              ┌─────────────────────┐
+                              │       USER          │
+                              └──────────┬──────────┘
+                                         │
+                                         ▼
+                              ┌─────────────────────┐
+                              │   React Frontend    │
+                              │      + Vite         │
+                              │   Redux Toolkit     │
+                              └──────────┬──────────┘
+                                         │
+                                         ▼
+                              ┌─────────────────────┐
+                              │    API Gateway      │
+                              │     Express.js      │
+                              └──────────┬──────────┘
+                                         │
+             ┌───────────────────────────┼──────────────────────────┐
+             │                           │                          │
+             ▼                           ▼                          ▼
+      ┌──────────────┐           ┌──────────────┐           ┌──────────────┐
+      │ Auth Service │           │ Chat Service │           │Billing Service│
+      └──────┬───────┘           └──────┬───────┘           └──────────────┘
+             │                          │
+             │                          │
+             └──────────────┬───────────┘
+                            │
+                            ▼
+                   ┌─────────────────────┐
+                   │    Agent Service    │
+                   │                     │
+                   │    LangGraph        │
+                   │    LangChain        │
+                   └──────────┬──────────┘
+                              │
+                         Router Agent
+                              │
+        ┌─────────────┬────────┼─────────┬────────────┬─────────────┐
+        │             │        │         │            │             │
+        ▼             ▼        ▼         ▼            ▼             ▼
+      Chat         Search    Coding     PDF          PPT        ImageGen
+      Agent        Agent     Agent      Agent        Agent        Agent
+        │             │        │         │            │             │
+        │             ▼        ▼         │            │             │
+        │          Tavily   OpenRouter   │            │             │
+        │                    DeepSeek    │            │             │
+        │                                │            │             │
+        └────────────────────────────────┴────────────┴─────────────┘
+                              │
+                              ▼
+                         AI Response
+                              │
+                              ▼
+                         React UI
+
+     ┌──────────────┐       ┌──────────────┐       ┌──────────────┐
+     │   MongoDB    │       │    Redis     │       │   Qdrant     │
+     │              │       │              │       │              │
+     │ Persistent   │       │ Memory       │       │ Vector DB    │
+     │ Data         │       │ Sessions     │       │ RAG          │
+     └──────────────┘       └──────────────┘       └──────────────┘
+
+                              │
+                              ▼
+                           AWS Cloud
+                   
+                                  
 CortexAI/
 │
 ├── .github/
@@ -250,43 +229,76 @@ CortexAI/
 │
 ├── .gitignore
 └── README.md
-                                             How CortexAI Works
-User
-  │
-  ▼
-React Frontend
-  │
-  ▼
-API Gateway
-  │
-  ▼
-Authentication
-  │
-  ▼
-Agent / Chat Service
-  │
-  ├───────────────► General Chat
-  │
-  ├───────────────► Web Search
-  │                    │
-  │                    ▼
-  │                 Tavily
-  │                    │
-  │                    ▼
-  │                   LLM
-  │
-  ├───────────────► Coding Agent
-  │                    │
-  │                    ▼
-  │                Coding LLM
-  │
-  └───────────────► Image Analysis
-                       │
-                       ▼
-                     Gemini
-  │
-  ▼
-AI Response
-  │
-  ▼
+
 Frontend
+
+| Technology    | Purpose                           |
+| ------------- | --------------------------------- |
+| React.js      | Frontend user interface           |
+| Vite          | Development server and build tool |
+| JavaScript    | Frontend programming              |
+| CSS           | UI styling                        |
+| Redux Toolkit | State management                  |
+| React Router  | Client-side routing               |
+
+Backend
+
+| Technology    | Purpose                          |
+| ------------- | -------------------------------- |
+| Node.js       | Backend runtime                  |
+| Express.js    | REST API framework               |
+| REST APIs     | Service communication            |
+| Microservices | Modular backend architecture     |
+| JWT           | Authentication and authorization |
+
+AI & LLM
+
+| Technology | Purpose                            |
+| ---------- | ---------------------------------- |
+| LangChain  | AI/LLM integration                 |
+| LangGraph  | Multi-agent workflow orchestration |
+| Groq       | Fast LLM inference                 |
+| OpenRouter | Access to coding LLMs              |
+| DeepSeek   | Coding model                       |
+| Gemini     | Multimodal/image analysis          |
+| Tavily     | Web search                         |
+| RAG        | Knowledge retrieval and generation |
+
+Database
+
+| Technology | Purpose                             |
+| ---------- | ----------------------------------- |
+| MongoDB    | Persistent application database     |
+| Redis      | Sessions, memory and caching        |
+| Qdrant     | Vector database and semantic search |
+
+Cloud & DevOps
+
+| Technology     | Purpose                     |
+| -------------- | --------------------------- |
+| AWS            | Cloud infrastructure        |
+| AWS S3         | Cloud file/object storage   |
+| Docker         | Containerization            |
+| Docker Compose | Multi-service orchestration |
+| Git            | Version control             |
+| GitHub         | Source code hosting         |
+
+
+🔑 Environment Variables
+PORT=8003
+
+MONGODB_URI=your_mongodb_uri
+
+GROQ_API_KEY=your_groq_api_key
+GOOGLE_API_KEY=your_google_api_key
+TAVILY_API_KEY=your_tavily_api_key
+OPENROUTER_API_KEY=your_openrouter_api_key
+
+AWS_REGION=your_aws_region
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret
+AWS_BUCKET_NAME=your_bucket_name
+
+QDRANT_API_KEY=your_qdrant_api_key
+QDRANT_URL=your_qdrant_url
+
